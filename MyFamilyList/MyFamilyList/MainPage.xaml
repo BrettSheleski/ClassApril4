@@ -22,7 +22,7 @@
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="DOB: " FontSize="Small" />
-                                <Label Text="{Binding BirthDate}" FontSize="Small" />
+                                <Label Text="{Binding BirthDate, StringFormat='{0:d}'}" FontSize="Small" />
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

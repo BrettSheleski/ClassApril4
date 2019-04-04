@@ -16,13 +16,7 @@ namespace MyFamilyList
         public MainPage()
         {
             InitializeComponent();
-        }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            FamilyListView.ItemsSource = null;
             FamilyListView.ItemsSource = App.FamilyMembers;
         }
 

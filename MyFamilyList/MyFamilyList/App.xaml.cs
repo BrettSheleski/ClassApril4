@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MyFamilyList
 {
@@ -17,8 +18,8 @@ namespace MyFamilyList
 
             MainPage = navPage;
         }
-        
-        public static List<Person> FamilyMembers { get; } = new List<Person>();
+
+        public static ObservableCollection<Person> FamilyMembers { get; } = new ObservableCollection<Person>();
 
         protected override void OnStart()
         {
