@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.Generic;
 
 namespace MyFamilyList
 {
@@ -16,20 +17,49 @@ namespace MyFamilyList
 
             MainPage = navPage;
         }
+        
+        public static List<Person> FamilyMembers { get; } = new List<Person>();
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            base.OnStart();
+
+            PopulateFamilyMembers();
+        }
+
+        private void PopulateFamilyMembers()
+        {
+            if (this.Properties.ContainsKey("FamilyMembersJson"))
+            {
+                string json = (string)this.Properties["FamilyMembersJson"];
+
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    // deserialize the json to a list of Person's
+                    List<Person> people = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Person>>(json);
+
+
+                    // add the Person's to FamilyMembers
+                    foreach (var person in people)
+                    {
+                        FamilyMembers.Add(person);
+                    }
+                }
+            }
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            base.OnSleep();
+            
+            SaveFamilyMembers();
         }
 
-        protected override void OnResume()
+        private void SaveFamilyMembers()
         {
-            // Handle when your app resumes
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(FamilyMembers);
+
+            Properties["FamilyMembersJson"] = json;
         }
     }
 }

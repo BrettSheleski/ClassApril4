@@ -21,9 +21,11 @@ namespace MyFamilyList
         {
             Person person = new Person();
 
-            person.FirstName = ???;
-            person.LastName = ???;
-            person.BirthDate = ???;
+            person.FirstName = FirstNameEntry.Text;
+            person.LastName = LastNameEntry.Text;
+            person.BirthDate = BirthDatePicker.Date;
+
+            App.FamilyMembers.Add(person);
 
             await Navigation.PopAsync();
         }

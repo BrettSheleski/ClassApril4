@@ -11,8 +11,23 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0">
-            
+        <ListView Grid.Row="0" x:Name="FamilyListView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding FirstName}" FontSize="Large" />
+                                <Label Text="{Binding LastName}" FontSize="Large" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="DOB: " FontSize="Small" />
+                                <Label Text="{Binding BirthDate}" FontSize="Small" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Grid.Row="1" Text="Add Family Member" Clicked="AddFamilyMemberButton_Clicked"></Button>
     </Grid>

@@ -18,6 +18,14 @@ namespace MyFamilyList
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            FamilyListView.ItemsSource = null;
+            FamilyListView.ItemsSource = App.FamilyMembers;
+        }
+
         private async void AddFamilyMemberButton_Clicked(object sender, EventArgs e)
         {
             AddFamilyMemberPage addPage = new AddFamilyMemberPage();
