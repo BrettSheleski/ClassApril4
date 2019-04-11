@@ -19,6 +19,8 @@ namespace MyFamilyList
             MainPage = navPage;
         }
 
+        public static FamilyMemberDatabase Database { get; } = new FamilyMemberDatabase();
+
         public static ObservableCollection<Person> FamilyMembers { get; } = new ObservableCollection<Person>();
 
         protected override void OnStart()
@@ -30,37 +32,16 @@ namespace MyFamilyList
 
         private void PopulateFamilyMembers()
         {
-            if (this.Properties.ContainsKey("FamilyMembersJson"))
+            // retrieve all family members from the database
+            List<Person> peopleFromDatabase = Database.GetAll();
+
+            // add them to the FamilyMembers collection
+
+            foreach(Person person in peopleFromDatabase)
             {
-                string json = (string)this.Properties["FamilyMembersJson"];
-
-                if (!string.IsNullOrWhiteSpace(json))
-                {
-                    // deserialize the json to a list of Person's
-                    List<Person> people = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Person>>(json);
-
-
-                    // add the Person's to FamilyMembers
-                    foreach (var person in people)
-                    {
-                        FamilyMembers.Add(person);
-                    }
-                }
+                FamilyMembers.Add(person);
             }
         }
 
-        protected override void OnSleep()
-        {
-            base.OnSleep();
-            
-            SaveFamilyMembers();
-        }
-
-        private void SaveFamilyMembers()
-        {
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(FamilyMembers);
-
-            Properties["FamilyMembersJson"] = json;
-        }
     }
 }

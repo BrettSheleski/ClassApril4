@@ -27,6 +27,9 @@ namespace MyFamilyList
 
             App.FamilyMembers.Add(person);
 
+            App.Database.Add(person);
+            // also save it to the database
+
             await Navigation.PopAsync();
         }
     }
